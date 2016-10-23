@@ -1,11 +1,11 @@
 (function() {
 
     var app = angular.module('app', []);
-        app.provider('books',function(){
+        app.provider('books',function(constants){
         this.$get = function(){
-            var appName = 'Book Logger';
-            var appDesc = 'Track your books';
-            var version = '1.0';
+            var appName = constants.APP_TITLE
+            var appDesc = constants.APP_DESCRIPTION;
+            var version = constants.APP_VERSION;
             if(includeVersionTitle){
                 appName+=' '+version;
             }
@@ -19,8 +19,9 @@
                 includeVersionTitle = value;
             };
     });
-    app.config(function(booksProvider){
+    app.config(function(booksProvider, constants){
         booksProvider.setincludeVersionTitle(true);
+        console.log('title from the services '+constants.APP_DESCRIPTION);
     })
 
 }());
