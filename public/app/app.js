@@ -1,7 +1,7 @@
 (function() {
 
     var app = angular.module('app', []);
-        app.provider('books',function(constants){
+        app.provider('books',['constants',function(constants){
         this.$get = function(){
             var appName = constants.APP_TITLE
             var appDesc = constants.APP_DESCRIPTION;
@@ -18,10 +18,11 @@
             this.setincludeVersionTitle = function(value){
                 includeVersionTitle = value;
             };
-    });
-    app.config(function(booksProvider, constants){
+    }]);
+    app.config(['booksProvider', 'constants','dataServiceProvider',function(booksProvider, constants, dataServiceProvider){
         booksProvider.setincludeVersionTitle(true);
         console.log('title from the services '+constants.APP_DESCRIPTION);
-    })
+        console.log(dataServiceProvider.$get());
+    }])
 
 }());
