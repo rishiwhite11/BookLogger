@@ -8,15 +8,20 @@
 
         var vm = this;
         vm.appName = books.appName;
-        dataService.getAllBooks().then(getBooksSuccess, getBooksError,getBooksNotification);
+        dataService.getAllBooks().then(getBooksSuccess, null,getBooksNotification).catch(errorCallBack).finally(getAllBooksComplete);
         function getBooksSuccess(books){
             throw 'error in success handler';
             vm.allBooks = books;
+
+        }
+        function getAllBooksComplete(){
+            console.log('Get all books completed');
         }
 
-        function getBooksError(reason){
-            console.log(reason);
+        function errorCallBack(errorMsg){
+            console.log('Error message is '+errorMsg);
         }
+
         function getBooksNotification(notification){
             console.log('Promise notification '+notification);
         }
