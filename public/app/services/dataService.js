@@ -40,8 +40,7 @@
             $timeout(function () {
                 var successful = true;
                 if(successful){
-                    deferred.notify('Process has just started');
-                    deferred.notify('Almost done');
+                    deferred.notify('Processing is going on....')
                     deferred.resolve(booksArray);
                 }else{
                     deferred.reject('Error retrieving books');
@@ -51,7 +50,7 @@
         }
         function getAllReaders(){
             logger.output('Getting all the readers');
-            return[
+            var readersArray = [
                 {
                     reader_id:1,
                     name:'Mayukh',
@@ -75,8 +74,13 @@
                     name:'Mayukh',
                     weeklyReadingGoal: 230,
                     totalMinutesRead:5600
-                },
+                }
             ]
+            var deferred = $q.defer();
+            $timeout(function () {
+                deferred.resolve(readersArray);
+            },1500);
+            return deferred.promise;
         }
 
     }
